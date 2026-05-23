@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Landing Payment
 
-## Getting Started
+Ứng dụng landing page **Next.js + Tailwind** với đăng nhập, trang ví chính (nạp / rút tiền) và tạo mã **Bakong KHQR** qua thư viện [`bakong-khqr`](https://www.npmjs.com/package/bakong-khqr).
 
-First, run the development server:
+## Tính năng
+
+- **Đăng nhập** → chuyển tới `/dashboard`
+- **Nạp tiền**: nhập số tiền, tạo QR KHQR (USD/KHR), quét bằng app ngân hàng Bakong
+- **Kiểm tra thanh toán**: tự động poll mỗi 8s nếu có `BAKONG_TOKEN`
+- **Rút tiền**: form demo (cần API ngân hàng thật cho production)
+
+## Cài đặt
 
 ```bash
+npm install
+cp .env.local.example .env.local
+# Chỉnh BAKONG_ACCOUNT, merchant name, token...
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Mở [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Đăng nhập mặc định:** `admin` / `admin123` (đổi trong `.env.local`)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Cấu hình Bakong
 
-## Learn More
+1. Đăng ký [Bakong Developer](https://developer.bakong.nbc.gov.kh/) lấy token
+2. Điền `.env.local` (xem `.env.local.example`):
+   - `BAKONG_API_TOKEN` — token developer Bakong
+   - `BAKONG_ACCOUNT_ID` — ví nhận tiền (vd: `ten@bkrt`)
+   - `BAKONG_API_URL` — base API (`https://api-bakong.nbc.gov.kh`)
+   - `BAKONG_MERCHANT_NAME`, `BAKONG_MERCHANT_CITY`
+   - `BAKONG_QR_EXPIRE_MINUTES`, `BAKONG_DEFAULT_CURRENCY`
 
-To learn more about Next.js, take a look at the following resources:
+## Cấu trúc
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+  app/
+    login/          # Trang đăng nhập
+    dashboard/      # Nạp / rút tiền
+    api/
+      auth/         # login, logout
+      khqr/         # deposit QR, check payment
+      wallet/       # withdraw (demo)
+  components/
+  lib/
+    auth.ts
+    khqr.ts
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Lưu ý
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Node.js **>= 20.9** được khuyến nghị (Next.js 16)
+- Rút tiền hiện chỉ ghi nhận yêu cầu — tích hợp chuyển khoản Bakong API khi triển khai thật
+- Số dư trên UI là **demo trong trình duyệt**, không lưu database
