@@ -12,15 +12,15 @@ export function Logo({
   showText = true,
   href = "/",
   className = "",
-  imageClassName = "h-10 w-auto",
+  imageClassName = "h-14 w-auto sm:h-16",
 }: Props) {
   const content = (
     <>
       <Image
-        src="/Logo.png"
+        src="/Logo_Limdara.png"
         alt="Landing Payment"
-        width={160}
-        height={48}
+        width={280}
+        height={84}
         className={`object-contain ${imageClassName}`}
         priority
       />

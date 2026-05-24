@@ -45,7 +45,7 @@ export function LoginPageContent() {
                   <Logo
                     href="/login"
                     showText={false}
-                    imageClassName="h-10 w-auto"
+                    imageClassName="h-16 w-auto sm:h-24"
                     className="justify-center"
                   />
                   <h2 className="font-display text-2xl font-bold uppercase tracking-wider text-white">

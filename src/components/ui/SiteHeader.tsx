@@ -14,7 +14,7 @@ export function SiteHeader({ showNav = true, rightSlot }: Props) {
   return (
     <header className="border-b border-white/10 bg-[#0B0E14]/75 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 lg:px-8">
-        <Logo href="/" showText={false} imageClassName="h-9 w-auto sm:h-10" />
+        <Logo href="/" showText={false} imageClassName="h-16 w-auto sm:h-20 -my-4" />
 
         {showNav && (
           <nav className="hidden items-center gap-6 md:flex">
