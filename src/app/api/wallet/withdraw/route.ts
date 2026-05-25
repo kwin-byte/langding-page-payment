@@ -4,7 +4,10 @@ import { BANK_OPTIONS } from "@/lib/banks";
 
 export async function POST(request: Request) {
   if (!(await isAuthenticated())) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { error: "Unauthorized", code: "unauthorized" },
+      { status: 401 },
+    );
   }
 
   const body = await request.json();
@@ -13,21 +16,34 @@ export async function POST(request: Request) {
   const bankId = String(body.bankId ?? "").trim();
 
   if (!amount || amount <= 0 || Number.isNaN(amount)) {
-    return NextResponse.json({ error: "Số tiền không hợp lệ" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Invalid amount", code: "invalidAmount" },
+      { status: 400 },
+    );
   }
 
   if (!bankId) {
-    return NextResponse.json({ error: "Vui lòng chọn ngân hàng" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Please select a bank", code: "bankRequired" },
+      { status: 400 },
+    );
   }
 
   const bank = BANK_OPTIONS.find((b) => b.id === bankId);
   if (!bank) {
-    return NextResponse.json({ error: "Ngân hàng không hợp lệ" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Invalid bank", code: "bankInvalid" },
+      { status: 400 },
+    );
   }
 
   if (!account || !account.includes("@")) {
     return NextResponse.json(
-      { error: `Tài khoản không hợp lệ (vd: ten@${bank.suffix})` },
+      {
+        error: `Invalid account (e.g. name@${bank.suffix})`,
+        code: "accountInvalid",
+        params: { suffix: bank.suffix },
+      },
       { status: 400 },
     );
   }
@@ -37,6 +53,7 @@ export async function POST(request: Request) {
   return NextResponse.json({
     success: true,
     reference,
-    message: `Yêu cầu rút ${amount} USD tới ${account} (${bank.name}) đã được ghi nhận (demo).`,
+    code: "withdrawSuccess",
+    params: { amount, account, bank: bank.name },
   });
 }

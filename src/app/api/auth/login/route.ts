@@ -8,7 +8,7 @@ export async function POST(request: Request) {
 
   if (!validateCredentials(username, password)) {
     return NextResponse.json(
-      { error: "Tên đăng nhập hoặc mật khẩu không đúng" },
+      { error: "Incorrect username or password", code: "loginFailed" },
       { status: 401 },
     );
   }

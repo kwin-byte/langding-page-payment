@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { BANK_OPTIONS } from "@/lib/banks";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { format, localizeError } from "@/i18n/messages";
+import { useLocalizedFormValidation } from "@/hooks/useLocalizedFormValidation";
 
 type Props = {
   balance: number;
@@ -10,7 +12,8 @@ type Props = {
 };
 
 export function WithdrawPanel({ balance, onWithdrawSuccess }: Props) {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
+  const formRef = useLocalizedFormValidation();
   const [amount, setAmount] = useState("");
   const [bankId, setBankId] = useState("");
   const [account, setAccount] = useState("");
@@ -50,10 +53,10 @@ export function WithdrawPanel({ balance, onWithdrawSuccess }: Props) {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || t("withdraw.errorFailed"));
+        setError(localizeError(locale, data, t("withdraw.errorFailed")));
         return;
       }
-      setMessage(data.message);
+      setMessage(format(locale, "withdraw.successMessage", data.params));
       onWithdrawSuccess(numAmount);
       setAmount("");
       setBankId("");
@@ -66,7 +69,7 @@ export function WithdrawPanel({ balance, onWithdrawSuccess }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
       <div>
         <label className="mb-2 block font-display text-xs uppercase tracking-widest text-cyber-muted">
           {t("withdraw.amount")}

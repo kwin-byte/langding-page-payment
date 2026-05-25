@@ -4,7 +4,10 @@ import { createDepositQr, type Currency } from "@/lib/khqr";
 
 export async function POST(request: Request) {
   if (!(await isAuthenticated())) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { error: "Unauthorized", code: "unauthorized" },
+      { status: 401 },
+    );
   }
 
   const body = await request.json();
@@ -12,7 +15,10 @@ export async function POST(request: Request) {
   const currency = (body.currency === "KHR" ? "KHR" : "USD") as Currency;
 
   if (!amount || amount <= 0 || Number.isNaN(amount)) {
-    return NextResponse.json({ error: "Số tiền không hợp lệ" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Invalid amount", code: "invalidAmount" },
+      { status: 400 },
+    );
   }
 
   try {
@@ -21,7 +27,10 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("KHQR generation failed:", error);
     return NextResponse.json(
-      { error: "Không thể tạo mã QR. Kiểm tra cấu hình Bakong." },
+      {
+        error: "Cannot create QR code. Check Bakong configuration.",
+        code: "khqrFailed",
+      },
       { status: 500 },
     );
   }

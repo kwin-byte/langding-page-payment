@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { localizeError } from "@/i18n/messages";
+import { useLocalizedFormValidation } from "@/hooks/useLocalizedFormValidation";
 
 export function LoginForm() {
   const router = useRouter();
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
+  const formRef = useLocalizedFormValidation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -26,7 +29,7 @@ export function LoginForm() {
 
       if (!res.ok) {
         const data = await res.json();
-        setError(data.error || t("login.errorFailed"));
+        setError(localizeError(locale, data, t("login.errorFailed")));
         return;
       }
 
@@ -40,7 +43,12 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5" suppressHydrationWarning>
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit}
+      className="space-y-5"
+      suppressHydrationWarning
+    >
       <div>
         <label
           htmlFor="username"

@@ -57,6 +57,24 @@ export type MessageKey =
   | "withdraw.errorFailed"
   | "withdraw.errorConnection"
   | "withdraw.demoNote"
+  | "withdraw.successMessage"
+  | "validation.unauthorized"
+  | "validation.invalidAmount"
+  | "validation.bankRequired"
+  | "validation.bankInvalid"
+  | "validation.accountInvalid"
+  | "validation.loginFailed"
+  | "validation.khqrFailed"
+  | "validation.md5Missing"
+  | "validation.paymentCheckFailed"
+  | "validation.fieldRequired"
+  | "validation.invalidValue"
+  | "validation.rangeUnderflow"
+  | "validation.rangeOverflow"
+  | "validation.stepMismatch"
+  | "validation.patternMismatch"
+  | "validation.tooShort"
+  | "validation.tooLong"
   | "sideNav.intro"
   | "sideNav.wallet";
 
@@ -120,6 +138,25 @@ const vi: Messages = {
   "withdraw.errorFailed": "Rút tiền thất bại",
   "withdraw.errorConnection": "Không thể gửi yêu cầu",
   "withdraw.demoNote": "Chế độ demo — cần API chuyển khoản thật cho production.",
+  "withdraw.successMessage":
+    "Yêu cầu rút {amount} USD tới {account} ({bank}) đã được ghi nhận (demo).",
+  "validation.unauthorized": "Bạn chưa đăng nhập",
+  "validation.invalidAmount": "Số tiền không hợp lệ",
+  "validation.bankRequired": "Vui lòng chọn ngân hàng",
+  "validation.bankInvalid": "Ngân hàng không hợp lệ",
+  "validation.accountInvalid": "Tài khoản không hợp lệ (vd: ten@{suffix})",
+  "validation.loginFailed": "Tên đăng nhập hoặc mật khẩu không đúng",
+  "validation.khqrFailed": "Không thể tạo mã QR. Kiểm tra cấu hình Bakong.",
+  "validation.md5Missing": "Thiếu mã giao dịch",
+  "validation.paymentCheckFailed": "Không thể kiểm tra thanh toán",
+  "validation.fieldRequired": "Vui lòng điền vào trường này",
+  "validation.invalidValue": "Vui lòng nhập giá trị hợp lệ",
+  "validation.rangeUnderflow": "Giá trị phải lớn hơn hoặc bằng {min}",
+  "validation.rangeOverflow": "Giá trị phải nhỏ hơn hoặc bằng {max}",
+  "validation.stepMismatch": "Giá trị không hợp lệ",
+  "validation.patternMismatch": "Định dạng không hợp lệ",
+  "validation.tooShort": "Tối thiểu {min} ký tự",
+  "validation.tooLong": "Tối đa {max} ký tự",
   "sideNav.intro": "INTRO",
   "sideNav.wallet": "WALLET",
 };
@@ -182,6 +219,25 @@ const en: Messages = {
   "withdraw.errorFailed": "Withdrawal failed",
   "withdraw.errorConnection": "Cannot send request",
   "withdraw.demoNote": "Demo mode — real transfer API required for production.",
+  "withdraw.successMessage":
+    "Withdrawal of {amount} USD to {account} ({bank}) has been recorded (demo).",
+  "validation.unauthorized": "You are not signed in",
+  "validation.invalidAmount": "Invalid amount",
+  "validation.bankRequired": "Please select a bank",
+  "validation.bankInvalid": "Invalid bank",
+  "validation.accountInvalid": "Invalid account (e.g. name@{suffix})",
+  "validation.loginFailed": "Incorrect username or password",
+  "validation.khqrFailed": "Cannot create QR code. Check Bakong configuration.",
+  "validation.md5Missing": "Missing transaction ID",
+  "validation.paymentCheckFailed": "Cannot check payment status",
+  "validation.fieldRequired": "Please fill out this field",
+  "validation.invalidValue": "Please enter a valid value",
+  "validation.rangeUnderflow": "Value must be greater than or equal to {min}",
+  "validation.rangeOverflow": "Value must be less than or equal to {max}",
+  "validation.stepMismatch": "Invalid step value",
+  "validation.patternMismatch": "Invalid format",
+  "validation.tooShort": "Minimum {min} characters",
+  "validation.tooLong": "Maximum {max} characters",
   "sideNav.intro": "INTRO",
   "sideNav.wallet": "WALLET",
 };
@@ -244,6 +300,25 @@ const km: Messages = {
   "withdraw.errorFailed": "ដកប្រាក់មិនបាន",
   "withdraw.errorConnection": "មិនអាចផ្ញើសំណើ",
   "withdraw.demoNote": "របៀប demo — ត្រូវការ API ផ្ទេរប្រាក់ពិតសម្រាប់ production។",
+  "withdraw.successMessage":
+    "សំណើដក {amount} USD ទៅ {account} ({bank}) ត្រូវបានកត់ត្រា (demo)។",
+  "validation.unauthorized": "អ្នកមិនទាន់ចូលប្រើ",
+  "validation.invalidAmount": "ចំនួនមិនត្រឹមត្រូវ",
+  "validation.bankRequired": "សូមជ្រើសរើសធនាគារ",
+  "validation.bankInvalid": "ធនាគារមិនត្រឹមត្រូវ",
+  "validation.accountInvalid": "គណនីមិនត្រឹមត្រូវ (ឧ. name@{suffix})",
+  "validation.loginFailed": "ឈ្មោះអ្នកប្រើ ឬ ពាក្យសម្ងាត់មិនត្រឹមត្រូវ",
+  "validation.khqrFailed": "មិនអាចបង្កើត QR។ សូមពិនិត្យការកំណត់ Bakong។",
+  "validation.md5Missing": "បាត់លេខប្រតិបត្តិការ",
+  "validation.paymentCheckFailed": "មិនអាចពិនិត្យការទូទាត់",
+  "validation.fieldRequired": "សូមបំពេញវាលនេះ",
+  "validation.invalidValue": "សូមបញ្ចូលតម្លៃត្រឹមត្រូវ",
+  "validation.rangeUnderflow": "តម្លៃត្រូវធំជាង ឬស្មើ {min}",
+  "validation.rangeOverflow": "តម្លៃត្រូវតូចជាង ឬស្មើ {max}",
+  "validation.stepMismatch": "តម្លៃមិនត្រឹមត្រូវ",
+  "validation.patternMismatch": "ទម្រង់មិនត្រឹមត្រូវ",
+  "validation.tooShort": "យ៉ាងហោចណាស់ {min} តួអក្សរ",
+  "validation.tooLong": "ច្រើនបំផុត {max} តួអក្សរ",
   "sideNav.intro": "INTRO",
   "sideNav.wallet": "WALLET",
 };
@@ -252,6 +327,43 @@ export const messages: Record<Locale, Messages> = { vi, en, km };
 
 export function translate(locale: Locale, key: MessageKey): string {
   return messages[locale][key];
+}
+
+/** Interpolate `{name}` placeholders with values from `params`. */
+export function format(
+  locale: Locale,
+  key: MessageKey,
+  params?: Record<string, string | number>,
+): string {
+  const template = translate(locale, key);
+  if (!params) return template;
+  return template.replace(/\{(\w+)\}/g, (match, name: string) =>
+    Object.prototype.hasOwnProperty.call(params, name)
+      ? String(params[name])
+      : match,
+  );
+}
+
+/** Map API error codes to localized labels, fallback to provided text. */
+export function localizeError(
+  locale: Locale,
+  payload: { code?: string; error?: string; params?: Record<string, string | number> },
+  fallback?: string,
+): string {
+  if (payload.code) {
+    const dict = messages[locale] as Record<string, string | undefined>;
+    const template = dict[`validation.${payload.code}`];
+    if (template) {
+      const params = payload.params;
+      if (!params) return template;
+      return template.replace(/\{(\w+)\}/g, (match, name: string) =>
+        Object.prototype.hasOwnProperty.call(params, name)
+          ? String(params[name])
+          : match,
+      );
+    }
+  }
+  return payload.error || fallback || "";
 }
 
 /** Map API payment status codes to localized labels */

@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { paymentStatusLabel } from "@/i18n/messages";
+import { localizeError, paymentStatusLabel } from "@/i18n/messages";
+import { useLocalizedFormValidation } from "@/hooks/useLocalizedFormValidation";
 
 type Currency = "USD" | "KHR";
 
@@ -19,6 +20,7 @@ type Props = {
 
 export function DepositPanel({ onDepositSuccess }: Props) {
   const { t, locale } = useLanguage();
+  const formRef = useLocalizedFormValidation();
   const [amount, setAmount] = useState("");
   const [currency, setCurrency] = useState<Currency>("USD");
   const [expireMinutes, setExpireMinutes] = useState(15);
@@ -44,7 +46,7 @@ export function DepositPanel({ onDepositSuccess }: Props) {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || t("deposit.errorCreate"));
+        setError(localizeError(locale, data, t("deposit.errorCreate")));
         return;
       }
       setResult(data);
@@ -67,7 +69,7 @@ export function DepositPanel({ onDepositSuccess }: Props) {
       });
       const data = await res.json();
       if (!res.ok) {
-        setPaymentStatus(data.error || t("deposit.errorCheck"));
+        setPaymentStatus(localizeError(locale, data, t("deposit.errorCheck")));
         return;
       }
       setPaymentStatus(data.status);
@@ -108,7 +110,7 @@ export function DepositPanel({ onDepositSuccess }: Props) {
 
   return (
     <div className="space-y-6">
-      <form onSubmit={handleGenerate} className="space-y-5">
+      <form ref={formRef} onSubmit={handleGenerate} className="space-y-5">
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className="mb-2 block font-display text-xs uppercase tracking-widest text-cyber-muted">
