@@ -11,7 +11,7 @@ import {
 } from "react";
 import {
   DEFAULT_LOCALE,
-  isLocale,
+  isVisibleLocale,
   LOCALE_STORAGE_KEY,
   type Locale,
 } from "@/i18n/locales";
@@ -28,7 +28,7 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 function readStoredLocale(): Locale {
   if (typeof window === "undefined") return DEFAULT_LOCALE;
   const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
-  if (stored && isLocale(stored)) return stored;
+  if (stored && isVisibleLocale(stored)) return stored;
   return DEFAULT_LOCALE;
 }
 
